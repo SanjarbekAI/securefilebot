@@ -13,6 +13,16 @@ async def get_user(chat_id: int) -> Union[dict[Any, Any], bool]:
         print(error_text)
 
 
+async def get_user_not_active(chat_id: int) -> Union[dict[Any, Any], bool]:
+    try:
+        query = users.select().where(users.c.chat_id == chat_id, users.c.password is None)
+        row = await database.fetch_one(query=query)
+        return dict(row) if row else False
+    except Exception as e:
+        error_text = f"Error retrieving user with chat id {chat_id}: {e}"
+        print(error_text)
+
+
 async def add_user_start(message, language: str) -> [bool]:
     try:
         query = users.insert().values(
