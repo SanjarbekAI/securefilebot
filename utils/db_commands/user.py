@@ -13,9 +13,9 @@ async def get_user(chat_id: int) -> Union[dict[Any, Any], bool]:
         print(error_text)
 
 
-async def get_user_not_active(chat_id: int) -> Union[dict[Any, Any], bool]:
+async def get_inactive_user(chat_id: int) -> Union[dict[Any, Any], bool]:
     try:
-        query = users.select().where(users.c.chat_id == chat_id, users.c.password is None)
+        query = users.select().where(users.c.chat_id == chat_id, users.c.password == 'not')
         row = await database.fetch_one(query=query)
         return dict(row) if row else False
     except Exception as e:
@@ -27,12 +27,13 @@ async def add_user_start(message, language: str) -> [bool]:
     try:
         query = users.insert().values(
             chat_id=message.chat.id,
-            currect_chat_id=message.chat.id,
+            current_chat_id=message.chat.id,
             language=language,
             full_name=message.from_user.full_name,
             status=UserStatus.active,
             created_at=message.date,
             updated_at=message.date,
+            password='not',
             is_locked=0,
             is_blocked=0,
             is_premium=0,
