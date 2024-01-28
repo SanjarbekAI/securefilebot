@@ -13,16 +13,6 @@ async def get_user(chat_id: int) -> Union[dict[Any, Any], bool]:
         print(error_text)
 
 
-async def get_inactive_user(chat_id: int) -> Union[dict[Any, Any], bool]:
-    try:
-        query = users.select().where(users.c.chat_id == chat_id, users.c.password == 'not')
-        row = await database.fetch_one(query=query)
-        return dict(row) if row else False
-    except Exception as e:
-        error_text = f"Error retrieving user with chat id {chat_id}: {e}"
-        print(error_text)
-
-
 async def add_user_start(message, language: str) -> [bool]:
     try:
         query = users.insert().values(
@@ -43,4 +33,19 @@ async def add_user_start(message, language: str) -> [bool]:
         return True if new_user else False
     except Exception as e:
         error_text = f"Error adding user to database: {e}"
+        print(error_text)
+
+
+async def update_user_register(message, data: dict) -> [bool]:
+    try:
+        query = users.update().values(
+            full_name=message.from_user.full_name,
+            status=UserStatus.active,
+            updated_at=message.date,
+            password=data.get('password_1')
+        )
+        new_user = await database.execute(query)
+        return True if new_user else False
+    except Exception as e:
+        error_text = f"Error updating user: {e}"
         print(error_text)
