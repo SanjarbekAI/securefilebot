@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-01-28 23:16+0500\n"
+"POT-Creation-Date: 2024-01-29 00:12+0500\n"
 "PO-Revision-Date: 2024-01-28 23:14+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,7 +18,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: handlers/users/user_start.py:9
+#: handlers/users/user_start.py:17
 msgid "Assalomu alaykum, welcome to SecureFileBot 😊️️️️️️"
+msgstr ""
+
+#: handlers/users/user_start.py:29 handlers/users/user_start.py:42
+msgid "Please enter your phone number"
+msgstr ""
+
+#: handlers/users/user_start.py:38
+msgid "Please, create password. Minimum length is 5"
+msgstr ""
+
+#: handlers/users/user_start.py:51
+msgid "Please confirm your password"
+msgstr ""
+
+#: handlers/users/user_start.py:55
+msgid "Please enter more then 5 characters"
+msgstr ""
+
+#: handlers/users/user_start.py:67
+msgid "Congratulations! you have successfully registered 🎉"
+msgstr ""
+
+#: handlers/users/user_start.py:70
+msgid "Please enter same password as your previous"
+msgstr ""
+
+#: keyboards/default/user.py:8
+msgid "☎️ Share phone number"
 msgstr ""
 

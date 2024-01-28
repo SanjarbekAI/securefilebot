@@ -26,8 +26,8 @@ async def bot_start(message: types.Message):
 async def language_callback_handler(call: types.CallbackQuery, state: FSMContext):
     await state.update_data(language=call.data)
     await add_user_start(call.message, call.data)
-    text = _("Please enter your phone number")
-    await call.message.answer(text=text, reply_markup=await phone_number_share())
+    text = _("Please enter your phone number", locale=call.data)
+    await call.message.answer(text=text, reply_markup=await phone_number_share(language=call.data))
     await RegisterState.phone_number.set()
 
 
@@ -48,7 +48,7 @@ async def phone_number_handler(message: types.Message, state: FSMContext):
 async def password_1_handler(message: types.Message, state: FSMContext):
     if len(message.text) >= 5:
         await state.update_data(password_1=message.text)
-        text = _(f"Please confirm your password: {message.text}")
+        text = _(f"Please confirm your password")
         await message.answer(text=text, reply_markup=ReplyKeyboardRemove())
         await RegisterState.password_2.set()
     else:
@@ -67,6 +67,6 @@ async def password_1_handler(message: types.Message, state: FSMContext):
         text = _("Congratulations! you have successfully registered 🎉")
         await message.answer(text=text)
     else:
-        text = _(f"Please enter same password as your previous {password_1}")
+        text = _("Please enter same password as your previous")
         await message.answer(text=text, reply_markup=ReplyKeyboardRemove())
     await state.finish()
